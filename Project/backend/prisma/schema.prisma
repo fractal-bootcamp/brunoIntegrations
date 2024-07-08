@@ -1,0 +1,100 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5440/mydb"
+}
+
+//A user should have an array of contacts,
+//an array of mailing lists, and an array of emails
+model User {
+  id    String     @id @default(cuid())
+  clerkId String
+  name  String
+  email String  @unique
+  
+
+
+  mailingLists MailingList[]
+  messages Message[]
+  blasts Blast[]
+
+}
+
+
+//A Mailinglist is a list of email addresses
+model MailingList {
+  id    String     @id @default(cuid())
+  name  String
+  emails String[]
+
+//A Blast can use multiple mailing lists
+  blasts Blast[]
+  //A mailing list can have multiple contacts 
+  contacts Contact[]
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+}
+
+
+
+//A Blast is an event where a message is individually sent to
+//each contact in a mailing list
+model Blast {
+  id String @id @default(cuid())
+  name String
+  messages Message[]
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  targetLists MailingList[]
+}
+
+
+//A contact is a person with a name and an email address
+model Contact {
+  id    String     @id @default(cuid())
+  name  String
+  email String  @unique
+
+
+  //A contact can be in multiple mailing lists
+  mailingLists MailingList[]
+
+  //A contact can receive multiple messages Nope, since contacts are through mailing lists
+  messages Message[]
+
+
+}
+
+
+//A message has a sender, a recipient, a subject, a body, a sentAt time, a receivedAt time, and a deletedAt time
+model Message {
+  id    String     @id @default(cuid())
+  recipient    String
+  subject String
+  body String
+  sentAt DateTime
+  receivedAt DateTime
+  deletedAt DateTime
+
+  //A message can be in an user use of emails
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  //A message can be in a Blast
+  blast Blast @relation(fields: [blastId], references: [id])
+  blastId String
+
+  //Nope, since Blast and Mailinglist are the intermediaries
+   //A message can be received by a contact
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+
+}
