@@ -1,0 +1,77 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5440/mydb"
+}
+
+//A user should have an array of contacts,
+//an array of mailing lists, an array of lists, and an array of emails
+model User {
+  id    String     @id @default(cuid())
+  name  String
+  email String  @unique
+  clerkId String
+
+//recipients are the contacts that have received emails
+recipients Contact[]
+
+//contacts are object type with pairs of name and email
+  contacts Contact[]
+  mailingLists MailingList[]
+  lists Lists[]
+  emails Email[]
+}
+
+//A Blast is an event where a message is individually sent to
+//each contact in a mailing list
+model Blast {
+  name String
+  messageSent Message[]
+  author User @relation(fields: [userId], references: [id])
+  targetLists MailingList[]
+}
+
+//A Mailinglist is a list of email addresses
+model MailingList {
+  id    String     @id @default(cuid())
+  name  String
+  emails String[]
+
+  //A mailing list can have multiple contacts 
+  contacts Contact[]
+}
+
+
+//A contact is a person with a name and an email address
+model Contact {
+  id    String     @id @default(cuid())
+  name  String
+  email String  @unique
+
+//messages that contact received from user
+receivedMessages Message[]
+  //A contact can be in multiple mailing lists
+  mailingLists MailingList[]
+}
+
+//An email has a sender, a recipient, a subject, a body, a sentAt time, a receivedAt time, and a deletedAt time
+model Message {
+  id    String     @id @default(cuid())
+  recipient    String
+  subject String
+  body String
+  sentAt DateTime
+  receivedAt DateTime
+  deletedAt DateTime
+
+  //An email can be in multiple mailing lists
+  mailingLists MailingList[]
+  //An email can be in an user use of emails
+  author User @relation(fields: [userId], references: [id])
+  authorId String
+
+}
