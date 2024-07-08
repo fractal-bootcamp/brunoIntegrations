@@ -6,11 +6,22 @@ import type { Application, Request, RequestHandler, Response } from 'express';
 import "dotenv/config";
 
 import { requireAuth } from '@clerk/clerk-sdk-node'
-import { ClerkExpressWithAuth } from '@clerk/clerk-sdk-node'
+import { ClerkExpressWithAuth, type EmailAddress } from '@clerk/clerk-sdk-node'
+// import cookieParser from 'cookie-parser';
+import optionalUser from '../middleware';
+import bodyParser from 'body-parser';
+
 
 const prisma = new PrismaClient();
-const app = express();
+const app: Application = express();
 const port = 3010;
+
+
+// declare global {
+//     namespace Express {
+//         interface Request extends LooseAuthProp { }
+//     }
+// }
 
 // const clerk = ClerkExpressWithAuth({
 //     apiKey: process.env.CLERK_API_KEY,
@@ -19,9 +30,51 @@ const port = 3010;
 app.use(express.json());
 
 
+
+// allow urlencoded data to be submitted using middleware
+app.use(express.urlencoded({ extended: true }))
+
+// Enable CORS for all routes
+app.use(cors({
+    origin: 'http://localhost:5173/',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
+}));
+
+// clerk modifies the request by adding req.auth
+// this takes the token and communicates with clerk to get user information
+// which gets assigned to req.auth
+app.use(ClerkExpressWithAuth())
+//this is the clerk middleware we wrote for auth
+app.use(optionalUser)
+// const exampleMiddleware: RequestHandler = (req, res, next) => {
+//     // modify request
+//     req.user = {
+//         id: "1"
+//     }
+//     console.log(req.user)
+//     next()
+// }
+//on the /artfeed endpoint, create GET to pull in prisma art data
+
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+//GET all blasts
+
+app.get('/blast/all', async (req, res) => {
+
+    try {
+        const blasts = await prisma.blast.findMany();
+        res.json(blasts)
+
+    }
+    catch (error) {
+        res.status(500).json({ error: 'No blasts done yet!' })
+    }
+})
 
 //GET blast by id
 app.get('/blast/:id', async (req, res) => {
@@ -52,7 +105,6 @@ app.get('/blast/:id', async (req, res) => {
     }
 });
 
-
 //GET all Mailinglists
 app.get('/list/all', async (req, res) => {
 
@@ -69,6 +121,9 @@ app.get('/list/all', async (req, res) => {
         res.status(500).json({ error: 'Error getting all lists' });
     }
 })
+
+//here until monday
+
 
 // POST create a new blast
 app.post('/blast', async (req, res) => {
