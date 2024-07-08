@@ -1,0 +1,195 @@
+MacBook-Air:backend brunolloretfuentes$ bun prisma/seed.ts
+{
+  users: [
+    {
+      id: "user1-id",
+      clerkId: "clerkId1",
+      name: "User 1",
+      email: "user1@example.com",
+    }, {
+      id: "user2-id",
+      clerkId: "clerkId2",
+      name: "User 2",
+      email: "user2@example.com",
+    }, {
+      id: "user3-id",
+      clerkId: "clerkId3",
+      name: "User 3",
+      email: "user3@example.com",
+    }, {
+      id: "user4-id",
+      clerkId: "clerkId4",
+      name: "User 4",
+      email: "user4@example.com",
+    }, {
+      id: "user5-id",
+      clerkId: "clerkId5",
+      name: "User 5",
+      email: "user5@example.com",
+    }, {
+      id: "user6-id",
+      clerkId: "clerkId6",
+      name: "User 6",
+      email: "user6@example.com",
+    }, {
+      id: "user7-id",
+      clerkId: "clerkId7",
+      name: "User 7",
+      email: "user7@example.com",
+    }, {
+      id: "user8-id",
+      clerkId: "clerkId8",
+      name: "User 8",
+      email: "user8@example.com",
+    }, {
+      id: "user9-id",
+      clerkId: "clerkId9",
+      name: "User 9",
+      email: "user9@example.com",
+    }, {
+      id: "user10-id",
+      clerkId: "clerkId10",
+      name: "User 10",
+      email: "user10@example.com",
+    }
+  ],
+  contacts: [
+    {
+      id: "contact1-id",
+      name: "Contact 1",
+      email: "contact1@example.com",
+    }, {
+      id: "contact2-id",
+      name: "Contact 2",
+      email: "contact2@example.com",
+    }, {
+      id: "contact3-id",
+      name: "Contact 3",
+      email: "contact3@example.com",
+    }, {
+      id: "contact4-id",
+      name: "Contact 4",
+      email: "contact4@example.com",
+    }, {
+      id: "contact5-id",
+      name: "Contact 5",
+      email: "contact5@example.com",
+    }, {
+      id: "contact6-id",
+      name: "Contact 6",
+      email: "contact6@example.com",
+    }, {
+      id: "contact7-id",
+      name: "Contact 7",
+      email: "contact7@example.com",
+    }, {
+      id: "contact8-id",
+      name: "Contact 8",
+      email: "contact8@example.com",
+    }, {
+      id: "contact9-id",
+      name: "Contact 9",
+      email: "contact9@example.com",
+    }, {
+      id: "contact10-id",
+      name: "Contact 10",
+      email: "contact10@example.com",
+    }
+  ],
+  mailingLists: [
+    {
+      id: "ml1-id",
+      name: "MailingList 1",
+      emails: [ "contact1@example.com" ],
+      authorId: "user1-id",
+    }, {
+      id: "ml2-id",
+      name: "MailingList 2",
+      emails: [ "contact2@example.com" ],
+      authorId: "user2-id",
+    }, {
+      id: "ml3-id",
+      name: "MailingList 3",
+      emails: [ "contact3@example.com" ],
+      authorId: "user3-id",
+    }, {
+      id: "ml4-id",
+      name: "MailingList 4",
+      emails: [ "contact4@example.com" ],
+      authorId: "user4-id",
+    }, {
+      id: "ml5-id",
+      name: "MailingList 5",
+      emails: [ "contact5@example.com" ],
+      authorId: "user5-id",
+    }, {
+      id: "ml6-id",
+      name: "MailingList 6",
+      emails: [ "contact6@example.com" ],
+      authorId: "user6-id",
+    }, {
+      id: "ml7-id",
+      name: "MailingList 7",
+      emails: [ "contact7@example.com" ],
+      authorId: "user7-id",
+    }, {
+      id: "ml8-id",
+      name: "MailingList 8",
+      emails: [ "contact8@example.com" ],
+      authorId: "user8-id",
+    }, {
+      id: "ml9-id",
+      name: "MailingList 9",
+      emails: [ "contact9@example.com" ],
+      authorId: "user9-id",
+    }, {
+      id: "ml10-id",
+      name: "MailingList 10",
+      emails: [ "contact10@example.com" ],
+      authorId: "user10-id",
+    }
+  ],
+  blasts: [
+    {
+      id: "blast1-id",
+      name: "Blast 1",
+      authorId: "user1-id",
+    }, {
+      id: "blast2-id",
+      name: "Blast 2",
+      authorId: "user2-id",
+    }, {
+      id: "blast3-id",
+      name: "Blast 3",
+      authorId: "user3-id",
+    }, {
+      id: "blast4-id",
+      name: "Blast 4",
+      authorId: "user4-id",
+    }, {
+      id: "blast5-id",
+      name: "Blast 5",
+      authorId: "user5-id",
+    }, {
+      id: "blast6-id",
+      name: "Blast 6",
+      authorId: "user6-id",
+    }, {
+      id: "blast7-id",
+      name: "Blast 7",
+      authorId: "user7-id",
+    }, {
+      id: "blast8-id",
+      name: "Blast 8",
+      authorId: "user8-id",
+    }, {
+      id: "blast9-id",
+      name: "Blast 9",
+      authorId: "user9-id",
+    }, {
+      id: "blast10-id",
+      name: "Blast 10",
+      authorId: "user10-id",
+    }
+  ],
+}

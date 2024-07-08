@@ -1,0 +1,122 @@
+
+HOMEPAGE
+
+DASHBOARD
+MAILING LIST MANAGEMENT
+EMAIL COMPOSITION AND SENDING
+
+
+*****
+DASHBOARD:
+--QUICK VIEW OF RECENTLY SENT EMAIL BLASTS (GET by timeStamp)
+--Links:
+    -Mailing list management 
+    -email composition screens
+
+*****
+MAILING LIST MANAGEMENT 
+--CRUD
+    -Write an email 
+    -Read email 
+    -Delete email 
+    -Update(?)
+--sync to Google Sheets
+
+*****
+EMAIL COMPOSITION AND SENDING 
+-Compose and send emails to selected mailing lists
+
+
+
+*****
+
+in database: never store the same value twice
+
+database:
+
+User
+The user should have:
+emails sent 
+emails received 
+emails deleted
+
+Mailing lists (list of lists)
+
+Mailing list (list of email addresses)
+
+Contacts
+
+E-mails sent
+
+E-mails received
+
+E-mails deleted
+
+
+
+
+
+We are missing the
+
+Email blast:
+the entity we interrogate in order to understand how did that
+go with the users that received it.
+
+Email blast
+messageSent: Message[]
+Author: Admin User (the user that is authorized)
+targetLists MailingList[]
+name: string
+
+
+Contact's things that were missing:
+receivedMessages Message[]
+
+
+User's things that were missing:
+
+blasts: Blast[]
+clerkId: string
+recipient: Contact[]
+
+
+****
+
+endpoints are actions
+what do we need to do
+
+Dashboard:
+
+---
+
+GET /blast/all
+    /blast/:id
+
+POST /blast/new 
+lists: MailingList[]
+
+
+
+---
+
+GET /list/all
+
+DELETE /list/:id
+
+POST /list/new
+
+---
+
+PUT /list/:id 
+{
+    added: personIds
+
+    removed: personIds: string[]
+
+    name: string
+
+}
+//datastructure upload POST
+
+---
+
