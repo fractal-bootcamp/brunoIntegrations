@@ -1,5 +1,7 @@
 -- Mailing list toolkit:
 
+--SideBar with get All Mailing List /DONE
+
     -get all(GET)
         just all /DONE
         by params:

@@ -89,21 +89,26 @@ Dashboard:
 
 ---
 
-GET /blast/all
-    /blast/:id
+GET /blast/all DONE
+    /blast/:id DONE
 
-POST /blast/new 
+POST /blast/new DONE
+
 lists: MailingList[]
-
+name: string
+content: string 
+    author: req.user.id
+    -get of recipients from mailinglist 
+    -
 
 
 ---
 
-GET /list/all
+GET /list/all DONE
 
-DELETE /list/:id
+DELETE /list/:id DONE
 
-POST /list/new
+POST /list/new DONE 
 
 ---
 
@@ -120,3 +125,205 @@ PUT /list/:id
 
 ---
 
+
+-- Re-define relations, in particular 
+
+User writes a message and blasts it
+to lists -Mailing lists- of contacts.
+
+A blast is a message sent individually but in mass to each contact in a mailinglist. A blast can be sent to various mailing lists simultaneously, in the same event.
+
+We want to know when the messages where received, open, and the other funcionalities described at Message.
+
+We will create two polymorphic tables: The one that describes the relation between the contacts that are in mailinglists, and the one that refers to the mailing lists on blasts.
+
+Is there any other obvious and important polymorphic table I should create?
+
+
+AuthUser:
+
+blast
+
+messages sent
+messagesReceived //messages received directly by contacts
+
+mailing list 
+
+contacts 
+
+
+Blast:
+
+message
+
+mailing list
+
+contacts 
+
+
+
+Message:
+
+details
+    sentTo
+    sentBy
+    timeSent
+    open?
+    openAt
+
+    belongsToBlast?
+    whichBlast
+
+Mailing list:
+
+createdBy
+timeCreated
+
+contacts
+
+belongsToBlast?
+whichBlast
+
+
+Contacts:
+
+name
+email
+messagesReceived
+belongsToMailingList?
+whichMailingList
+
+
+
+
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5440/mydb"
+}
+
+//A user should have an array of contacts,
+//an array of mailing lists, and an array of emails
+model User {
+  id    String     @id @default(cuid())
+  name  String
+  email String  @unique
+  clerkId String
+
+
+  mailingLists MailingList[]
+  messages Message[]
+  blasts Blast[]
+
+  //Relation to blasts authored by the user
+  blastAuthored Blast[] @relation("AuthorOfBlasts")
+}
+
+
+//A Blast is an event where a message is individually sent to
+//each contact in a mailing list
+model Blast {
+  id String @id @default(cuid())
+  name String
+  messageSent Message[]
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  targetLists MailingList[]
+
+}
+
+
+model MailingListsOnBlasts {
+  blast Blast @relation(fields: [blastId], references: [id])
+  blastId String
+  mailingList MailingList @relation(fields: [mailingListId], references: [id])
+  mailingListId String
+  sentAt DateTime @default(now())
+
+  @@id([blastId, mailingListId])
+}
+
+
+
+model MailingListsOnContacts {
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+  mailingList MailingList @relation(fields: [mailingListId], references: [id])
+  mailingListId String
+
+  @@id([contactId, mailingListId])
+}
+
+
+
+//A Mailinglist is a list of email addresses
+model MailingList {
+  id    String     @id @default(cuid())
+  name  String
+  emails String[]
+
+//A Blast can use multiple mailing lists
+  blasts Blast[]
+  //A mailing list can have multiple contacts 
+  contacts Contact[]
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  mailingListsOnBlasts MailingListsOnBlasts[]
+  mailingListsOnContacts MailingListsOnContacts[]
+}
+
+
+
+
+
+//A contact is a person with a name and an email address
+model Contact {
+  id    String     @id @default(cuid())
+  name  String
+  email String  @unique
+
+
+  //A contact can be in multiple mailing lists
+  mailingLists MailingList[]
+
+  //A contact can receive multiple messages Nope, since contacts are through mailing lists
+  messages Message[]
+
+//Many to many contact with mailinglist
+  mailingListsOnContacts MailingListsOnContacts[]
+}
+
+
+//A message has a sender, a recipient, a subject, a body, a sentAt time, a receivedAt time, and a deletedAt time
+model Message {
+  id    String     @id @default(cuid())
+  recipient    String
+  subject String
+  body String
+  sentAt DateTime
+  receivedAt DateTime
+  deletedAt DateTime
+
+  //A message can be in an user use of emails
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  //A message can be in a Blast
+  blast Blast @relation(fields: [blastId], references: [id])
+  blastId String
+
+  //Nope, since Blast and Mailinglist are the intermediaries
+   //A message can be received by a contact
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+
+}

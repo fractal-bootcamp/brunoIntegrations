@@ -1,7 +1,6 @@
 const API_URL = 'http://localhost:3010';
 
-import { User, MailingList, Blast, Contact, Message } from '../../../shared/types/Types';
-
+import CreateContactForm from '../components/CreateContactForm.tsx'
 
 // Get recently sent email blasts
 export const getAllBlasts = async (token: string | null) => {
@@ -92,3 +91,35 @@ export const getAllMailingLists = async (token: string | null) => {
         return null;
     }
 };
+
+export const createNewContact = async (token: string | null, contactData: { name: string; email: string }) => {
+
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/list/new-contact`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(contactData)
+        })
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to create a new contact: ${response.status} - ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log('Created new contact:', result);
+        return result;
+
+    } catch (error) {
+        console.error('Error creating a new contact:', error);
+        return null;
+    }
+}
