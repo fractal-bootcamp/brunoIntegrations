@@ -9,6 +9,7 @@ import ProtectedRoute from '../src/components/ProtectedRoute.tsx'
 import Home from "./components/Home"
 import SignIn from './routes/sign-in.tsx'
 import SignUp from './routes/sign-up.tsx'
+import MailingListManager from './layouts/MailingList.tsx'
 //import MailingListManager
 //import ToolkitEditor
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
         path: "/Mailing-list-manager",
         element: (
           <ProtectedRoute>
-            <Home />
+            <MailingListManager />
           </ProtectedRoute>
         ),
       },
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/Editor",
+        element: (
+          <ProtectedRoute>
+            <MailingListManager />
           </ProtectedRoute>
         ),
       },

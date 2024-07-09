@@ -8,93 +8,87 @@ datasource db {
   url      = "postgresql://postgres:postgres@localhost:5440/mydb"
 }
 
-//A user should have an array of contacts,
-//an array of mailing lists, and an array of emails
+model MailingListsOnContacts {
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+  mailingList MailingList @relation(fields: [mailingListId], references: [id])
+  mailingListId String
+
+  @@id([contactId, mailingListId])
+}
+
+model MailingListsOnBlasts {
+  blast Blast @relation(fields: [blastId], references: [id])
+  blastId String
+  mailingList MailingList @relation(fields: [mailingListId], references: [id])
+  mailingListId String
+  sentAt DateTime @default(now())
+
+  @@id([blastId, mailingListId])
+}
+
+// User model with arrays of related entities
 model User {
   id    String     @id @default(cuid())
   clerkId String
   name  String
   email String  @unique
   
-
-
   mailingLists MailingList[]
   messages Message[]
-  blasts Blast[]
-
+  blasts Blast[] @relation("UserBlasts")
 }
 
-
-//A Mailinglist is a list of email addresses
+// MailingList model
 model MailingList {
   id    String     @id @default(cuid())
   name  String
   emails String[]
-
-//A Blast can use multiple mailing lists
-  blasts Blast[]
-  //A mailing list can have multiple contacts 
-  contacts Contact[]
-
+  
+  contacts MailingListsOnContacts[]
+  blasts MailingListsOnBlasts[]
   author User @relation(fields: [authorId], references: [id])
   authorId String
-
 }
 
-
-
-//A Blast is an event where a message is individually sent to
-//each contact in a mailing list
+// Blast model
 model Blast {
   id String @id @default(cuid())
   name String
-  messages Message[]
-
-  author User @relation(fields: [authorId], references: [id])
+  sentAt DateTime @default(now())
+  
+  author User @relation("UserBlasts", fields: [authorId], references: [id])
   authorId String
 
-  targetLists MailingList[]
+  mailingLists MailingListsOnBlasts[]
+  messages Message[]
 }
 
-
-//A contact is a person with a name and an email address
+// Contact model
 model Contact {
   id    String     @id @default(cuid())
   name  String
   email String  @unique
-
-
-  //A contact can be in multiple mailing lists
-  mailingLists MailingList[]
-
-  //A contact can receive multiple messages Nope, since contacts are through mailing lists
-  messages Message[]
-
-
+  
+  mailingLists MailingListsOnContacts[]
+  messages Message[] // Messages sent to this contact
 }
 
-
-//A message has a sender, a recipient, a subject, a body, a sentAt time, a receivedAt time, and a deletedAt time
+// Message model
 model Message {
   id    String     @id @default(cuid())
-  recipient    String
   subject String
   body String
   sentAt DateTime
-  receivedAt DateTime
-  deletedAt DateTime
+  receivedAt DateTime?
+  deletedAt DateTime?
 
-  //A message can be in an user use of emails
   author User @relation(fields: [authorId], references: [id])
   authorId String
 
-  //A message can be in a Blast
   blast Blast @relation(fields: [blastId], references: [id])
   blastId String
 
-  //Nope, since Blast and Mailinglist are the intermediaries
-   //A message can be received by a contact
   contact Contact @relation(fields: [contactId], references: [id])
   contactId String
-
 }
