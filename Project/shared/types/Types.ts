@@ -65,3 +65,17 @@ export type MailingListsOnBlasts = {
     mailingListId: string;
     sentAt: Date;
 }
+
+
+interface MenuItemStyles {
+    root?: ElementStyles;
+    button?: ElementStyles;
+    label?: ElementStyles;
+    prefix?: ElementStyles;
+    suffix?: ElementStyles;
+    icon?: ElementStyles;
+    subMenuContent?: ElementStyles;
+    SubMenuExpandIcon?: ElementStyles;
+}
+
+type ElementStyles = Object | ((params: MenuItemStyles) => Object | undefined);

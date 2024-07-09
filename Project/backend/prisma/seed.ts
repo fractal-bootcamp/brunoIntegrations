@@ -53,6 +53,15 @@ async function main() {
     );
 
 
+
+    // Helper function to generate a random date within the last 10 days
+    function getRandomDateWithinLastTenDays() {
+        const now = new Date();
+        const randomDaysAgo = Math.floor(Math.random() * 10); // Random number between 0 and 9
+        const randomDate = new Date(now.setDate(now.getDate() - randomDaysAgo));
+        return randomDate;
+    }
+
     // Create blasts
     const blasts = await Promise.all(
         Array.from({ length: 10 }).map((_, i) =>
@@ -60,6 +69,7 @@ async function main() {
                 data: {
                     name: `Blast ${i + 1}`,
                     author: { connect: { id: users[i % 10].id } },
+                    sentAt: getRandomDateWithinLastTenDays(),  // Set the sentAt attribute with random date
                 },
             })
         )
