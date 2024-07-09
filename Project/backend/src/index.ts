@@ -198,6 +198,65 @@ app.delete('/mailingList/:id', async (req, res) => {
 
 );
 
+app.post('/list/new-contact', async (req, res) => {
+    const { name, email, mailingListIds } = req.body;
+
+    try {
+
+        const newContact = await prisma.contact.create({
+            data: {
+                name,
+                email
+            }
+
+        }
+        );
+
+        res.status(201).json(newContact)
+
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json('Error creating a new contact')
+    }
+
+})
+
+app.get('/contact/:email', async (req, res) => {
+
+    const { email } = req.params;
+
+    try {
+        const userFetched = await prisma.contact.findUnique({
+
+            where: {
+                email: email
+            },
+
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                mailingLists: true,
+                messages: true
+            }
+
+        })
+
+
+        if (!userFetched) {
+            return res.status(404).json({ error: 'Contact not found' });
+        }
+
+
+        res.json(userFetched)
+    } catch (error) {
+        res.status(500).json({ error: 'Error finding that email' })
+    }
+
+})
+
+
 app.post('/mailingList/new', async (req, res) => {
     const { name, emails, authorId, contactIds } = req.body;
 
