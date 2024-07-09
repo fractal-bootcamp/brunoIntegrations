@@ -80,7 +80,14 @@ app.listen(port, () => {
 app.get('/blast/all', async (req, res) => {
 
     try {
-        const blasts = await prisma.blast.findMany();
+        const blasts = await prisma.blast.findMany({
+            select: {
+                id: true,
+                name: true,
+                sentAt: true,
+                authorId: true,
+            }
+        });
         res.json(blasts)
 
     }
@@ -123,7 +130,9 @@ app.get('/list/all', async (req, res) => {
 
     try {
         const lists = await prisma.mailingList.findMany({
-            include: {
+            select: {
+                name: true,
+                emails: true,
                 author: true,
                 contacts: true,
                 blasts: true,

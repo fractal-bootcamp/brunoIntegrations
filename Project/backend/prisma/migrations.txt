@@ -1,53 +1,53 @@
-MacBook-Air:backend brunolloretfuentes$ bun prisma/seed.ts
+
 {
   users: [
     {
-      id: "clyeki8es0008ct0qov47c645",
+      id: "clyeqdk9a00083yojj39rsb5t",
       clerkId: "clerkId1",
       name: "User 1",
       email: "user1@example.com",
     }, {
-      id: "clyeki8ea0000ct0qczhpafpr",
+      id: "clyeqdk9600033yojevwc20jd",
       clerkId: "clerkId2",
       name: "User 2",
       email: "user2@example.com",
     }, {
-      id: "clyeki8em0003ct0qeniyxe85",
+      id: "clyeqdk8f00003yojm24hqr0j",
       clerkId: "clerkId3",
       name: "User 3",
       email: "user3@example.com",
     }, {
-      id: "clyeki8es0007ct0qglq2f2nx",
+      id: "clyeqdk9900063yoj4x1pypyq",
       clerkId: "clerkId4",
       name: "User 4",
       email: "user4@example.com",
     }, {
-      id: "clyeki8et0009ct0qu0pgiwr3",
+      id: "clyeqdk9900073yojooqsn5r7",
       clerkId: "clerkId5",
       name: "User 5",
       email: "user5@example.com",
     }, {
-      id: "clyeki8er0006ct0quc11zvqe",
+      id: "clyeqdk9600043yojr25r7ozp",
       clerkId: "clerkId6",
       name: "User 6",
       email: "user6@example.com",
     }, {
-      id: "clyeki8eo0004ct0q3okroxmc",
+      id: "clyeqdk9300013yojf2mizdqb",
       clerkId: "clerkId7",
       name: "User 7",
       email: "user7@example.com",
     }, {
-      id: "clyeki8ei0001ct0qysdc36v6",
+      id: "clyeqdk9300023yoj6zw4gb3z",
       clerkId: "clerkId8",
       name: "User 8",
       email: "user8@example.com",
     }, {
-      id: "clyeki8ep0005ct0q9z8zzsqb",
+      id: "clyeqdk9b00093yoj8k6p9q09",
       clerkId: "clerkId9",
       name: "User 9",
       email: "user9@example.com",
     }, {
-      id: "clyeki8ej0002ct0qaw6fxkff",
+      id: "clyeqdk9800053yoj0lul6ccg",
       clerkId: "clerkId10",
       name: "User 10",
       email: "user10@example.com",
@@ -55,331 +55,331 @@ MacBook-Air:backend brunolloretfuentes$ bun prisma/seed.ts
   ],
   contacts: [
     {
-      id: "clyeki8ex000act0qqft2tiup",
+      id: "clyeqdk9g000a3yoj0fr49n9o",
       name: "Contact 1",
       email: "contact1@example.com",
     }, {
-      id: "clyeki8ex000cct0qlf457hcs",
+      id: "clyeqdk9g000d3yojl6xseqxr",
       name: "Contact 2",
       email: "contact2@example.com",
     }, {
-      id: "clyeki8f1000kct0qngqu7ywa",
+      id: "clyeqdk9g000e3yojvpxu14a4",
       name: "Contact 3",
       email: "contact3@example.com",
     }, {
-      id: "clyeki8ex000dct0qswk774xe",
+      id: "clyeqdk9g000b3yojs91625h0",
       name: "Contact 4",
       email: "contact4@example.com",
     }, {
-      id: "clyeki8ex000hct0q4dvcbf92",
+      id: "clyeqdk9g000c3yoj29v4lzyt",
       name: "Contact 5",
       email: "contact5@example.com",
     }, {
-      id: "clyeki8ex000bct0q5aohwww8",
+      id: "clyeqdk9g000g3yojdp36pfao",
       name: "Contact 6",
       email: "contact6@example.com",
     }, {
-      id: "clyeki8f2000lct0qpivo0qr9",
+      id: "clyeqdka1001l3yojyt9ps4sb",
       name: "Contact 7",
       email: "contact7@example.com",
     }, {
-      id: "clyeki8f2000nct0qg4bdlmp0",
+      id: "clyeqdk9n000u3yoj8jc3gtle",
       name: "Contact 8",
       email: "contact8@example.com",
     }, {
-      id: "clyeki8ex000ect0qlpdajylr",
+      id: "clyeqdk9g000f3yoj9o77w7s9",
       name: "Contact 9",
       email: "contact9@example.com",
     }, {
-      id: "clyeki8ex000gct0q4b7u97f8",
+      id: "clyeqdka5001n3yojbxkbc003",
       name: "Contact 10",
       email: "contact10@example.com",
     }, {
-      id: "clyeki8ex000ict0q1k290n0n",
+      id: "clyeqdk9u001d3yojkunn1on3",
       name: "Contact 11",
       email: "contact11@example.com",
     }, {
-      id: "clyeki8fd001ict0qn5gasadk",
+      id: "clyeqdk9g000h3yojk5qgo3mj",
       name: "Contact 12",
       email: "contact12@example.com",
     }, {
-      id: "clyeki8ex000fct0qy5mxdi6q",
+      id: "clyeqdk9r00173yojcy9ib0qb",
       name: "Contact 13",
       email: "contact13@example.com",
     }, {
-      id: "clyeki8fc001gct0q1oqjyevo",
+      id: "clyeqdk9u001c3yojixrrw290",
       name: "Contact 14",
       email: "contact14@example.com",
     }, {
-      id: "clyeki8f50010ct0q8zjc3aeq",
+      id: "clyeqdk9g000i3yoj5k6gt9ra",
       name: "Contact 15",
       email: "contact15@example.com",
     }, {
-      id: "clyeki8f70013ct0qmryc0dzo",
+      id: "clyeqdk9u001e3yojecgt10pq",
       name: "Contact 16",
       email: "contact16@example.com",
     }, {
-      id: "clyeki8f70016ct0q6t6hrvtn",
+      id: "clyeqdk9w001i3yoj8cra1dwh",
       name: "Contact 17",
       email: "contact17@example.com",
     }, {
-      id: "clyeki8fk001nct0qe5tk3y2p",
+      id: "clyeqdk9g000j3yoj27axr0jw",
       name: "Contact 18",
       email: "contact18@example.com",
     }, {
-      id: "clyeki8fh001jct0qlrax9gzb",
+      id: "clyeqdk9m000p3yojgxum3g51",
       name: "Contact 19",
       email: "contact19@example.com",
     }, {
-      id: "clyeki8fc001ect0qpbgncjih",
+      id: "clyeqdk9m000s3yojpu7mncs6",
       name: "Contact 20",
       email: "contact20@example.com",
     }, {
-      id: "clyeki8fc001dct0qsjc3m31a",
+      id: "clyeqdk9n000v3yojtjcxx0o5",
       name: "Contact 21",
       email: "contact21@example.com",
     }, {
-      id: "clyeki8fc001fct0q92r1w9ky",
+      id: "clyeqdka1001m3yojnen5myrm",
       name: "Contact 22",
       email: "contact22@example.com",
     }, {
-      id: "clyeki8ex000jct0q36g9fxxa",
+      id: "clyeqdk9v001g3yojf1qqnbo9",
       name: "Contact 23",
       email: "contact23@example.com",
     }, {
-      id: "clyeki8fh001kct0qwrxm709r",
+      id: "clyeqdk9v001f3yoj7q0z8kow",
       name: "Contact 24",
       email: "contact24@example.com",
     }, {
-      id: "clyeki8fc001act0qcq97slfo",
+      id: "clyeqdk9v001h3yojgnrosox6",
       name: "Contact 25",
       email: "contact25@example.com",
     }, {
-      id: "clyeki8fd001hct0qn3dc3g6m",
+      id: "clyeqdk9x001j3yojohurrl5a",
       name: "Contact 26",
       email: "contact26@example.com",
     }, {
-      id: "clyeki8fh001lct0qwuxm8oue",
+      id: "clyeqdk9z001k3yojm188oxd4",
       name: "Contact 27",
       email: "contact27@example.com",
     }, {
-      id: "clyeki8fj001mct0qlty3kcz2",
+      id: "clyeqdk9l000l3yoj4eyac4kp",
       name: "Contact 28",
       email: "contact28@example.com",
     }, {
-      id: "clyeki8fc001bct0q3ijfkqiy",
+      id: "clyeqdk9l000n3yojzmbn0l6h",
       name: "Contact 29",
       email: "contact29@example.com",
     }, {
-      id: "clyeki8fc001cct0q13npi0iu",
+      id: "clyeqdk9m000q3yojxkr8fkd3",
       name: "Contact 30",
       email: "contact30@example.com",
     }, {
-      id: "clyeki8f2000pct0q6s92l9an",
+      id: "clyeqdk9l000k3yojasp6pnu1",
       name: "Contact 31",
       email: "contact31@example.com",
     }, {
-      id: "clyeki8f3000vct0qn5d4ucxr",
+      id: "clyeqdk9l000m3yoje7ok30o3",
       name: "Contact 32",
       email: "contact32@example.com",
     }, {
-      id: "clyeki8f70018ct0q491tsi18",
+      id: "clyeqdk9l000o3yojcmqrthpn",
       name: "Contact 33",
       email: "contact33@example.com",
     }, {
-      id: "clyeki8f2000mct0qzqzceok6",
+      id: "clyeqdk9m000r3yojsh4x5v2p",
       name: "Contact 34",
       email: "contact34@example.com",
     }, {
-      id: "clyeki8f2000oct0q2pz0ia7q",
+      id: "clyeqdk9m000t3yojljfg4j35",
       name: "Contact 35",
       email: "contact35@example.com",
     }, {
-      id: "clyeki8f2000tct0qnawwnsoe",
+      id: "clyeqdk9n000x3yoj503tzj0g",
       name: "Contact 36",
       email: "contact36@example.com",
     }, {
-      id: "clyeki8f4000yct0qkq4miugg",
+      id: "clyeqdk9n000w3yojq3q277ix",
       name: "Contact 37",
       email: "contact37@example.com",
     }, {
-      id: "clyeki8f2000qct0qft7c2cfp",
+      id: "clyeqdk9p00143yojjy5vm2v7",
       name: "Contact 38",
       email: "contact38@example.com",
     }, {
-      id: "clyeki8f2000sct0q6dayg19l",
+      id: "clyeqdk9n000y3yoj5i4x1stu",
       name: "Contact 39",
       email: "contact39@example.com",
     }, {
-      id: "clyeki8f2000rct0qzvfion8l",
+      id: "clyeqdk9o00113yojfe2fa68m",
       name: "Contact 40",
       email: "contact40@example.com",
     }, {
-      id: "clyeki8f2000uct0qr9fu8ds6",
+      id: "clyeqdk9n000z3yoj96xk57t6",
       name: "Contact 41",
       email: "contact41@example.com",
     }, {
-      id: "clyeki8f4000xct0qywmfmdh1",
+      id: "clyeqdk9o00123yojc82niwd3",
       name: "Contact 42",
       email: "contact42@example.com",
     }, {
-      id: "clyeki8f3000wct0qd1rukigo",
+      id: "clyeqdk9o00103yojmrod9q82",
       name: "Contact 43",
       email: "contact43@example.com",
     }, {
-      id: "clyeki8f5000zct0qk3cyf20f",
+      id: "clyeqdk9o00133yojz6wskbj7",
       name: "Contact 44",
       email: "contact44@example.com",
     }, {
-      id: "clyeki8f50011ct0q89oyde4v",
+      id: "clyeqdk9p00153yojp42nil8c",
       name: "Contact 45",
       email: "contact45@example.com",
     }, {
-      id: "clyeki8f60012ct0qf3vt2ee2",
+      id: "clyeqdk9r00163yoj1g04dqzd",
       name: "Contact 46",
       email: "contact46@example.com",
     }, {
-      id: "clyeki8f70014ct0qodwupmsd",
+      id: "clyeqdk9r00183yojkmm9gsqv",
       name: "Contact 47",
       email: "contact47@example.com",
     }, {
-      id: "clyeki8f70015ct0qzezj6nyo",
+      id: "clyeqdk9r00193yoj4sbc7cx2",
       name: "Contact 48",
       email: "contact48@example.com",
     }, {
-      id: "clyeki8f70017ct0qr99zxwih",
+      id: "clyeqdk9r001b3yojbz5wpgwr",
       name: "Contact 49",
       email: "contact49@example.com",
     }, {
-      id: "clyeki8f90019ct0q6f727tf3",
+      id: "clyeqdk9r001a3yojcyog4r5e",
       name: "Contact 50",
       email: "contact50@example.com",
     }
   ],
   mailingLists: [
     {
-      id: "clyeki8fn001oct0qr9e8gbqm",
+      id: "clyeqdka9001o3yoji70nt478",
       name: "MailingList 1",
       emails: [ "contact1@example.com", "contact2@example.com", "contact3@example.com",
         "contact4@example.com", "contact5@example.com"
       ],
-      authorId: "clyeki8es0008ct0qov47c645",
+      authorId: "clyeqdk9a00083yojj39rsb5t",
     }, {
-      id: "clyeki8fn001sct0qgjqct3hq",
+      id: "clyeqdka9001p3yoj9mafjyzr",
       name: "MailingList 2",
       emails: [ "contact6@example.com", "contact7@example.com", "contact8@example.com",
         "contact9@example.com", "contact10@example.com"
       ],
-      authorId: "clyeki8ea0000ct0qczhpafpr",
+      authorId: "clyeqdk9600033yojevwc20jd",
     }, {
-      id: "clyeki8fn001pct0qkd3vyj06",
+      id: "clyeqdka9001q3yojqrpniqgf",
       name: "MailingList 3",
       emails: [ "contact11@example.com", "contact12@example.com", "contact13@example.com",
         "contact14@example.com", "contact15@example.com"
       ],
-      authorId: "clyeki8em0003ct0qeniyxe85",
+      authorId: "clyeqdk8f00003yojm24hqr0j",
     }, {
-      id: "clyeki8fn001rct0qv12srruy",
+      id: "clyeqdkaa001t3yojetx5whg3",
       name: "MailingList 4",
       emails: [ "contact16@example.com", "contact17@example.com", "contact18@example.com",
         "contact19@example.com", "contact20@example.com"
       ],
-      authorId: "clyeki8es0007ct0qglq2f2nx",
+      authorId: "clyeqdk9900063yoj4x1pypyq",
     }, {
-      id: "clyeki8fn001qct0qpz30xiq6",
+      id: "clyeqdka9001r3yoj2ci72i9q",
       name: "MailingList 5",
       emails: [ "contact21@example.com", "contact22@example.com", "contact23@example.com",
         "contact24@example.com", "contact25@example.com"
       ],
-      authorId: "clyeki8et0009ct0qu0pgiwr3",
+      authorId: "clyeqdk9900073yojooqsn5r7",
     }, {
-      id: "clyeki8fn001tct0qau1bschq",
+      id: "clyeqdkaa001s3yojfjmev469",
       name: "MailingList 6",
       emails: [ "contact26@example.com", "contact27@example.com", "contact28@example.com",
         "contact29@example.com", "contact30@example.com"
       ],
-      authorId: "clyeki8er0006ct0quc11zvqe",
+      authorId: "clyeqdk9600043yojr25r7ozp",
     }, {
-      id: "clyeki8fn001vct0q9mhfp5fa",
+      id: "clyeqdkaa001u3yoj6x6jarm3",
       name: "MailingList 7",
       emails: [ "contact31@example.com", "contact32@example.com", "contact33@example.com",
         "contact34@example.com", "contact35@example.com"
       ],
-      authorId: "clyeki8eo0004ct0q3okroxmc",
+      authorId: "clyeqdk9300013yojf2mizdqb",
     }, {
-      id: "clyeki8fn001uct0qqndvu8xf",
+      id: "clyeqdkaa001w3yojnpt0bbhv",
       name: "MailingList 8",
       emails: [ "contact36@example.com", "contact37@example.com", "contact38@example.com",
         "contact39@example.com", "contact40@example.com"
       ],
-      authorId: "clyeki8ei0001ct0qysdc36v6",
+      authorId: "clyeqdk9300023yoj6zw4gb3z",
     }, {
-      id: "clyeki8fo001wct0qpo30jbeh",
+      id: "clyeqdkaa001v3yojrze1ecno",
       name: "MailingList 9",
       emails: [ "contact41@example.com", "contact42@example.com", "contact43@example.com",
         "contact44@example.com", "contact45@example.com"
       ],
-      authorId: "clyeki8ep0005ct0q9z8zzsqb",
+      authorId: "clyeqdk9b00093yoj8k6p9q09",
     }, {
-      id: "clyeki8fo001xct0qb88wsegs",
+      id: "clyeqdkaa001x3yojxnik1an1",
       name: "MailingList 10",
       emails: [ "contact46@example.com", "contact47@example.com", "contact48@example.com",
         "contact49@example.com", "contact50@example.com"
       ],
-      authorId: "clyeki8ej0002ct0qaw6fxkff",
+      authorId: "clyeqdk9800053yoj0lul6ccg",
     }
   ],
   blasts: [
     {
-      id: "clyeki8fv001yct0qyevfsnte",
+      id: "clyeqdkas001y3yojsu2ink84",
       name: "Blast 1",
-      sentAt: 2024-07-09T15:30:14.971Z,
-      authorId: "clyeki8es0008ct0qov47c645",
+      sentAt: 2024-07-02T18:14:34.754Z,
+      authorId: "clyeqdk9a00083yojj39rsb5t",
     }, {
-      id: "clyeki8fv001zct0qn6h3rlf2",
+      id: "clyeqdkas001z3yojo3r99w1p",
       name: "Blast 2",
-      sentAt: 2024-07-09T15:30:14.971Z,
-      authorId: "clyeki8ea0000ct0qczhpafpr",
+      sentAt: 2024-07-08T18:14:34.755Z,
+      authorId: "clyeqdk9600033yojevwc20jd",
     }, {
-      id: "clyeki8fv0027ct0q4730x260",
+      id: "clyeqdkas00253yoj5ef8998w",
       name: "Blast 3",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8em0003ct0qeniyxe85",
+      sentAt: 2024-07-01T18:14:34.755Z,
+      authorId: "clyeqdk8f00003yojm24hqr0j",
     }, {
-      id: "clyeki8fv0020ct0qpwaoylii",
+      id: "clyeqdkas00213yojds7kg4k5",
       name: "Blast 4",
-      sentAt: 2024-07-09T15:30:14.971Z,
-      authorId: "clyeki8es0007ct0qglq2f2nx",
+      sentAt: 2024-06-30T18:14:34.755Z,
+      authorId: "clyeqdk9900063yoj4x1pypyq",
     }, {
-      id: "clyeki8fv0022ct0qvu8yqedq",
+      id: "clyeqdkas00203yojg6xvn2s6",
       name: "Blast 5",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8et0009ct0qu0pgiwr3",
+      sentAt: 2024-07-08T18:14:34.755Z,
+      authorId: "clyeqdk9900073yojooqsn5r7",
     }, {
-      id: "clyeki8fv0023ct0qx54tciff",
+      id: "clyeqdkas00243yojx8y0jl4g",
       name: "Blast 6",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8er0006ct0quc11zvqe",
+      sentAt: 2024-07-03T18:14:34.755Z,
+      authorId: "clyeqdk9600043yojr25r7ozp",
     }, {
-      id: "clyeki8fv0021ct0q1uuhhlld",
+      id: "clyeqdkas00223yojlqsauila",
       name: "Blast 7",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8eo0004ct0q3okroxmc",
+      sentAt: 2024-07-02T18:14:34.755Z,
+      authorId: "clyeqdk9300013yojf2mizdqb",
     }, {
-      id: "clyeki8fv0024ct0q5nap6jp9",
+      id: "clyeqdkas00233yojhkyo18rq",
       name: "Blast 8",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8ei0001ct0qysdc36v6",
+      sentAt: 2024-07-06T18:14:34.755Z,
+      authorId: "clyeqdk9300023yoj6zw4gb3z",
     }, {
-      id: "clyeki8fv0025ct0qglw0n0fg",
+      id: "clyeqdkas00263yojlfal4m82",
       name: "Blast 9",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8ep0005ct0q9z8zzsqb",
+      sentAt: 2024-07-01T18:14:34.755Z,
+      authorId: "clyeqdk9b00093yoj8k6p9q09",
     }, {
-      id: "clyeki8fv0026ct0qlvqj23ym",
+      id: "clyeqdkas00273yojz1g8lb7d",
       name: "Blast 10",
-      sentAt: 2024-07-09T15:30:14.972Z,
-      authorId: "clyeki8ej0002ct0qaw6fxkff",
+      sentAt: 2024-07-08T18:14:34.755Z,
+      authorId: "clyeqdk9800053yoj0lul6ccg",
     }
   ],
 }

@@ -1,0 +1,21 @@
+-- Mailing list toolkit:
+
+    -get all(GET)
+        just all /DONE
+        by params:
+            -name (search for a list by its name)
+            -email in many (search for an email on mailinglists)
+            -email in one (idem in one mailing list)
+
+    -create (PUT)
+        name (required)
+        mail
+
+        other mailing list
+        add a commentary on the mailing list 
+
+    -modify (POST)
+        name
+        mail
+    
+
