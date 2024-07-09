@@ -3,6 +3,9 @@ import express from 'express';
 
 import cors from 'cors';
 import type { Application, Request, RequestHandler, Response } from 'express';
+import dotenv from 'dotenv'
+dotenv.config();
+
 import "dotenv/config";
 
 import { requireAuth } from '@clerk/clerk-sdk-node'
@@ -11,11 +14,9 @@ import { ClerkExpressWithAuth, type EmailAddress } from '@clerk/clerk-sdk-node'
 import optionalUser from '../middleware';
 import bodyParser from 'body-parser';
 
-
 const prisma = new PrismaClient();
 const app: Application = express();
 const port = 3010;
-
 
 // declare global {
 //     namespace Express {
@@ -36,7 +37,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // Enable CORS for all routes
 app.use(cors({
-    origin: 'http://localhost:5173/',
+    origin: 'http://localhost:5173',
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type,Authorization'
 }));
@@ -56,6 +57,18 @@ app.use(optionalUser)
 //     next()
 // }
 //on the /artfeed endpoint, create GET to pull in prisma art data
+
+
+const CLERK_SECRET_KEY = 'sk_test_Z0n7KabEw4xNQGadmIjqXUxTIvYlGCjSoksOM9apAL'
+
+const CLERK_PUBLISHABLE_KEY = 'pk_test_ZmFpdGhmdWwtbWFzdG9kb24tOTUuY2xlcmsuYWNjb3VudHMuZGV2JA'
+
+const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY;
+
+
+if (!clerkPublishableKey) {
+    throw new Error("Clerk publishable key not set. Check your environment variables.");
+}
 
 
 app.listen(port, () => {
