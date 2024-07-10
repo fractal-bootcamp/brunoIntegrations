@@ -123,3 +123,38 @@ export const createNewContact = async (token: string | null, contactData: { name
         return null;
     }
 }
+
+
+export const createNewList = async (token: string | null, listData: { name: string; emails: string[], authorId: string }) => {
+
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/list/new-list`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(listData)
+        })
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to create a new contact: ${response.status} - ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log('Created new mailing list:', result);
+        return result;
+
+    } catch (error) {
+        console.error('Error creating a new mailing list:', error);
+        return null;
+    }
+}
+
+

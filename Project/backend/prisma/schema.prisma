@@ -30,25 +30,13 @@ model MailingListsOnBlasts {
 // User model with arrays of related entities
 model User {
   id    String     @id @default(cuid())
-  clerkId String
+  clerkId String @unique
   name  String
   email String  @unique
   
   mailingLists MailingList[]
   messages Message[]
   blasts Blast[] @relation("UserBlasts")
-}
-
-// MailingList model
-model MailingList {
-  id    String     @id @default(cuid())
-  name  String
-  emails String[]
-  
-  contacts MailingListsOnContacts[]
-  blasts MailingListsOnBlasts[]
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
 }
 
 // Blast model
@@ -64,6 +52,18 @@ model Blast {
   messages Message[]
 }
 
+// MailingList model
+model MailingList {
+  id    String     @id @default(cuid())
+  name  String
+  emails String[]
+  
+  contacts MailingListsOnContacts[]
+  blasts MailingListsOnBlasts[]
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
 // Contact model
 model Contact {
   id    String     @id @default(cuid())
@@ -77,6 +77,7 @@ model Contact {
 // Message model
 model Message {
   id    String     @id @default(cuid())
+
   subject String
   body String
   sentAt DateTime

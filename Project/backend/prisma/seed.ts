@@ -52,8 +52,6 @@ async function main() {
         )
     );
 
-
-
     // Helper function to generate a random date within the last 10 days
     function getRandomDateWithinLastTenDays() {
         const now = new Date();

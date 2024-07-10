@@ -13,6 +13,7 @@ import { ClerkExpressWithAuth, type EmailAddress } from '@clerk/clerk-sdk-node'
 // import cookieParser from 'cookie-parser';
 import optionalUser from '../middleware';
 import bodyParser from 'body-parser';
+import { User, MailingList, Blast, Contact, Message, MailingListsOnContacts, MailingListsOnBlasts, MenuItemStyles } from '../../shared/types/Types'
 
 const prisma = new PrismaClient();
 const app: Application = express();
@@ -69,6 +70,8 @@ const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY;
 if (!clerkPublishableKey) {
     throw new Error("Clerk publishable key not set. Check your environment variables.");
 }
+
+
 
 
 app.listen(port, () => {
@@ -144,7 +147,6 @@ app.get('/list/all', async (req, res) => {
     }
 })
 
-//here until monday
 
 
 // POST create a new blast
@@ -257,17 +259,35 @@ app.get('/contact/:email', async (req, res) => {
 })
 
 
-app.post('/mailingList/new', async (req, res) => {
-    const { name, emails, authorId, contactIds } = req.body;
+app.post('/list/new-list', async (req, res: Response) => {
+    const { name, emails, authorId, authorEmail } = req.body;
 
     try {
+        if (!name || !emails || (!authorId && !authorEmail)) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        const authorConnect = authorId
+            ? { clerkId: authorId }
+            : { email: authorEmail };
+
+        // / First, check if the user exists in your database
+        const user = await prisma.user.findUnique({
+            where: { clerkId: authorId }
+        });
+
+        if (!user) {
+            // If the user doesn't exist, you might want to create one
+            // or return an error
+            return res.status(404).json({ error: 'User not found in database' });
+        }
+
 
         const newMailingList = await prisma.mailingList.create({
             data: {
                 name,
                 emails,
-                author: { connect: { id: authorId } },
-                contacts: { connect: contactIds.map((id: string) => ({ id })) },
+                author: { connect: authorConnect },
             },
         })
         res.status(201).json(newMailingList);
