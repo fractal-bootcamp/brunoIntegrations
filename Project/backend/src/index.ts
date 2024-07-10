@@ -300,7 +300,7 @@ app.post('/list/new-list', async (req, res: Response) => {
 
 )
 
-app.post('/mailingList/update', async (req, res) => {
+app.post('/mailing-list/update', async (req, res) => {
     //we first destructure the mailing list in order to upload info
     //we need name and email
 
@@ -320,5 +320,30 @@ app.post('/mailingList/update', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error in updating contact in mailing list' });
+    }
+})
+
+app.post('/contact/edit', async (req, res) => {
+
+    const { name, email } = req.body;
+    const contactId: string = req.body.id;
+
+    try {
+        const contactDetails = await prisma.contact.update({
+            data:
+            {
+                name,
+                email,
+            },
+
+            where: { id: contactId }
+        })
+
+        res.status(201).json(contactDetails)
+    }
+
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: `Error in updating contact's information` });
     }
 })

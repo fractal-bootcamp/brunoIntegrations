@@ -25,7 +25,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
- "include": ["src/**/*.ts", "src/**/*.tsx", "src/components/BlastDisplay.tsx", "src/components/CreateMailingList.tsx"],
+ "include": ["src/**/*.ts", "src/**/*.tsx", "src/components/EditListName.tsx", "src/components/BlastDisplay.tsx", "src/components/CreateMailingList.tsx"],
   "exclude": ["node_modules", "test.ts", "**/*.spec.ts"]
 }
 

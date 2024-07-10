@@ -157,4 +157,65 @@ export const createNewList = async (token: string | null, listData: { name: stri
     }
 }
 
+export const editList = async (token: string, data: {
+    id: string;
+    name?: string;
+    emails?: string[];
+    authorId: string;
+}) => {
+
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+
+        const response = await fetch(`${API_URL}/mailing-list/update`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(data)
+        })
+
+        const result = await response.json();
+        console.log('List updated:', result);
+        return result
+
+    } catch (error) {
+        console.error('Error editing the list:', error);
+        return null;
+    }
+
+}
+
+export const editContact = async (token: string | null, contactData: { name?: string, email?: string }) => {
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/contact/edit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(contactData)
+        })
+
+        const result = await response.json();
+        console.log('Information of the contact updated:', result)
+        return result
+
+    } catch (error) {
+        console.error(`Error editing contact's information:`, error);
+        return null;
+    }
+
+}
+
 
