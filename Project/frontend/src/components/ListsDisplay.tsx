@@ -5,49 +5,16 @@ import ListWithProps from '../components/ListWithProps.tsx'
 import { MailingList } from '../../../shared/types/Types'
 
 export default function ListsDisplay() {
-    const [list, setList] = useState<MailingList[]>([])
+    const [lists, setList] = useState<MailingList[]>([])
     const [visible, setVisible] = useState(false)
     const [listByName, setListByName] = useState<string[]>([])
+    const [selectedList, setSelectedList] = useState<string[]>([]);
+    const [listVisible, setListVisible] = useState(false)
+    const [oneListVisible, setOneListVisible] = useState(false)
+    const [collapsed, setCollapsed] = React.useState(false)
     // const [listByName, setListByName] = useState<string[]>([])
 
     const getToken = useAuth().getToken;
-
-    // useEffect(() => {
-    //     const fetchedData = async () => {
-
-    //         try {
-
-    //             const token = await getToken();
-    //             const mailingList = await getAllMailingLists(token);
-    //             setList(mailingList);
-    //         }
-    //         catch (error) {
-    //             console.log('Error fetching mailing lists:', error);
-    //         }
-
-
-    //     }
-
-    //     fetchedData();
-
-    // }, [getToken])
-
-    // const handleDisplayAllList = async () => {
-
-
-    //     try {
-
-    //         const token = await getToken();
-    //         const mailingList = await getAllMailingLists(token);
-    //         setList(mailingList);
-    //     }
-    //     catch (error) {
-    //         console.log('Error fetching mailing lists:', error);
-    //     }
-
-    //     setVisible(!visible)
-
-    // }
 
 
     const handleDisplayListsByName = async () => {
@@ -55,16 +22,27 @@ export default function ListsDisplay() {
         try {
             const token = await getToken();
             const mailingList = await getAllMailingLists(token);
-            setList(mailingList.name);
+            setList(mailingList);
         } catch (error) {
             console.log('Error fetching mailing lists by name:', error);
         }
 
         setVisible(!visible)
+
     }
 
-    if (list === null) {
+    if (lists === null) {
         return <div>Loading...</div>;
+    }
+
+    // when clicked, we will fetch the specific emails inside that list, and render them
+    //
+
+    const handleDisplayIndividualList = (list: MailingList) => {
+        const { emails } = list
+
+        setSelectedList(emails);
+        setOneListVisible(!oneListVisible)
     }
 
     return (
@@ -72,13 +50,33 @@ export default function ListsDisplay() {
             <div>
                 <button onClick={handleDisplayListsByName}>See all lists</button>
                 {visible && (
-                    <div>
-                        {list.map((item) => (
-                            <ListWithProps key={item.id} mailingList={item} />
+                    <ul>
+                        {lists.map((lists) => (
+                            <li key={lists.id} >
+                                <button onClick={() => handleDisplayIndividualList(lists)}>{lists.name}</button>
+                                {
+                                    listVisible && (
+                                        <ul>
+                                            {selectedList.map((list) => (
+
+                                                <li key={lists.id}>
+                                                    {lists.emails}
+
+                                                </li>
+
+                                            ))
+
+                                            }
+
+                                        </ul>
+                                    )
+                                }
+                            </li>
                         ))}
-                    </div>
+                    </ul>
 
                 )}
+                {/* {selectedList && <ListWithProps mailingList={selectedList} />} */}
             </div>
         </>
     )

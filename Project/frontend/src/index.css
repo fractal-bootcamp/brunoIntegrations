@@ -66,3 +66,41 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.general-box{
+display: flex;
+justify-content: space-between;
+align-items:start
+}
+
+.sidebar{
+  display: flex;
+  justify-content: space-between; /* Distribute space evenly between the elements */
+  align-items: center; 
+}
+
+.element{
+  flex: 1; /* Allow elements to grow and shrink as needed */
+  margin: 10px; /* Optional: add some margin between elements */
+  text-align: center; /* Optional: center text within elements */
+  padding: 10px; /* Optional: add some padding */
+  border: 1px solid #ccc; /* Optional: add a border */
+}
+
+.content-window{
+  flex: 1; /* Take up remaining space */
+    padding: 20px; /* Padding for main content */
+}
+
+.mailing-list-editor-main-body{}
+
+.mailing-list-editor-new-contact-input-and-btn{
+  display: flex;
+}
+.mailing-list-editor-title-and-edit-btn{
+  display: flex;
+}
+
+.mailing-list-editor-add-new-contact{display: flex;}
+
+.mailing-list-editor-element-list{flex: 1; text-align: center;}
