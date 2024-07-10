@@ -5,10 +5,6 @@ interface ListWithPropsProps {
     mailingList: MailingList;
 }
 
-interface Email {
-    emails: Contact;
-}
-
 const ListWithProps: React.FC<ListWithPropsProps> = ({ mailingList: { id, name, emails } }) => {
 
     return (
@@ -16,14 +12,16 @@ const ListWithProps: React.FC<ListWithPropsProps> = ({ mailingList: { id, name, 
             <div>
                 <ul>
                     <li><h3>name: {name}</h3></li>
-                    <li><h3>e-mails:</h3></li>
-                    <ul>
-                        {emails.map(
-                            (email, index) => (
-                                <li key={index}>{email}</li>
-                            )
-                        )}
-                    </ul>
+                    {emails && emails.length > 0 && (
+                        <li>
+                            <h3>Emails:</h3>
+                            <ul>
+                                {emails.map((email, index) => (
+                                    <li key={index}>{email.email}</li>
+                                ))}
+                            </ul>
+                        </li>
+                    )}
                 </ul>
             </div>
         </>
