@@ -37,11 +37,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 // Enable CORS for all routes
-app.use(cors({
-    origin: 'http://localhost:5173',
-    methods: 'GET,POST,PUT,DELETE',
-    allowedHeaders: 'Content-Type,Authorization'
-}));
+const corsOptions = {
+    origin: 'http://localhost:5173', // Replace with your frontend origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 // clerk modifies the request by adding req.auth
 // this takes the token and communicates with clerk to get user information

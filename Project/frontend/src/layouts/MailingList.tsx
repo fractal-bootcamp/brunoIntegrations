@@ -32,7 +32,7 @@ export default function MailingListManager(onListSelect) {
         <div className="content-window">
           <CreateContactForm />
           <CreateNewListForm />
-          <EditListName />
+          <ListsDisplay />
         </div>
       </div>
     </>

@@ -219,32 +219,109 @@ export const editContact = async (token: string | null, contactData: { name?: st
 
 }
 
+export const getList = async (token: string | null, listId: string) => {
+    try {
+        const response = await fetch(`${API_URL}/list/${listId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+        });
 
-export const deleteContact = async (token: string | null, email: string) => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch list');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching list:', error);
+        throw error;
+    }
+};
+
+//DELETE contact
+
+export const deleteContact = async (token: string | null, contactData: { name?: string, email?: string }) => {
     if (!token) {
         console.error('No token provided');
         return null;
     }
 
     try {
-        const response = await fetch(`${API_URL}/contact/delete`, {
+        const response = await fetch(`${API_URL}/contact`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({ email }),
+            body: JSON.stringify(contactData)
         });
 
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Failed to delete contact: ${response.status} - ${errorText}`);
-        }
+        const result = await response.json();
 
-        console.log('Deleted contact:', email);
-        return email;
+        return result;
+
     } catch (error) {
         console.error('Error deleting contact:', error);
         return null;
     }
 };
+
+//DELETE mailing list
+export const deleteMailingList = async (token: string | null, listData: { id?: string, name?: string, emails?: string[] }) => {
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/list`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(listData)
+        });
+
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        console.error('Error deleting mailing list:', error);
+        return null;
+    }
+};
+
+
+//DELETE mailing list emails one by one (emails[])
+export const deleteMailFromMailingList = async (token: string | null, listId: string, email: string) => {
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/list/emails/${listId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ email })
+        });
+        const result = await response.json();
+        return result;
+
+    } catch (error) {
+        console.error('Error deleting email from mailing list:', error);
+        return null;
+    }
+};
+
+
+//DELETE blast all
+
+//GET blast by sentAt
