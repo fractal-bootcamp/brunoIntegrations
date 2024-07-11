@@ -1,16 +1,16 @@
 // src/components/ProtectedRoute.tsx
-import React from 'react';
-import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
+import React from "react";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <>
-            <SignedIn>{children}</SignedIn>
-            <SignedOut>
-                <RedirectToSignIn />
-            </SignedOut>
-        </>
-    );
+  return (
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
 };
 
 export default ProtectedRoute;

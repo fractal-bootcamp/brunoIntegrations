@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
-
-    return (
-        <>
-            <h3>Welcome to BLAST!</h3>
-        </>
-    )
-
+  return (
+    <>
+      <h3>Welcome to BLAST!</h3>
+    </>
+  );
 }

@@ -3,22 +3,24 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "prisma": "^5.16.2"
   },
   "peerDependencies": {
     "typescript": "^5.5.3"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.2.7",
     "@clerk/clerk-sdk-node": "^5.0.14",
     "@clerk/nextjs": "^5.2.2",
+    "@clerk/remix": "^4.2.1",
     "@faker-js/faker": "^8.4.1",
-    "@prisma/client": "^5.16.1",
+    "@prisma/client": "^5.16.2",
     "@types/express": "^4.17.21",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "prisma": "^5.16.1",
     "ts-node": "^10.9.2"
   },
   "scripts": {

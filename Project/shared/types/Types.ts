@@ -10,6 +10,7 @@ export type User = {
 }
 
 export type MailingList = {
+    map(arg0: (list: any) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode;
     id: string;
     name: string;
     emails: string[];

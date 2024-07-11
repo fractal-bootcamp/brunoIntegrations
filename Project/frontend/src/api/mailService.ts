@@ -92,7 +92,6 @@ export const getAllMailingLists = async (token: string | null) => {
     }
 };
 
-
 export const createNewList = async (token: string | null, listData: { name: string; emails: string[], authorId: string }) => {
 
     if (!token) {
@@ -221,3 +220,31 @@ export const editContact = async (token: string | null, contactData: { name?: st
 }
 
 
+export const deleteContact = async (token: string | null, email: string) => {
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/contact/delete`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({ email }),
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to delete contact: ${response.status} - ${errorText}`);
+        }
+
+        console.log('Deleted contact:', email);
+        return email;
+    } catch (error) {
+        console.error('Error deleting contact:', error);
+        return null;
+    }
+};
