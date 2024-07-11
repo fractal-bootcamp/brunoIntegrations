@@ -3,10 +3,10 @@ import express from 'express';
 
 import cors from 'cors';
 import type { Application, Request, RequestHandler, Response } from 'express';
-import dotenv from 'dotenv'
+
+import dotenv from 'dotenv';
 dotenv.config();
 
-import "dotenv/config";
 
 import { requireAuth } from '@clerk/clerk-sdk-node'
 import { ClerkExpressWithAuth, type EmailAddress } from '@clerk/clerk-sdk-node'
@@ -59,10 +59,6 @@ app.use(optionalUser)
 // }
 //on the /artfeed endpoint, create GET to pull in prisma art data
 
-
-const CLERK_SECRET_KEY = 'sk_test_Z0n7KabEw4xNQGadmIjqXUxTIvYlGCjSoksOM9apAL'
-
-const CLERK_PUBLISHABLE_KEY = 'pk_test_ZmFpdGhmdWwtbWFzdG9kb24tOTUuY2xlcmsuYWNjb3VudHMuZGV2JA'
 
 const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY;
 

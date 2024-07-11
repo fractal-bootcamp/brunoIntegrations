@@ -30,3 +30,23 @@ nameFunction = async (input) => {
     catch(error)
 
 }
+
+3. server
+
+app.method('/route', async (req, res) => {
+
+    do we need parameters from the database?
+
+    try {
+        const var = await prisma.operation
+
+        process operation
+
+        return result
+    }
+
+    catch(error) {
+
+    }
+
+})

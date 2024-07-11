@@ -1,10 +1,13 @@
-import React from 'react';
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import MailingListManager from './layouts/MailingList'
-
+import React from "react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
+import MailingListManager from "./layouts/MailingList";
 
 const App: React.FC = () => {
-
   return (
     <>
       <div>
@@ -22,6 +25,6 @@ const App: React.FC = () => {
       </div>
     </>
   );
-}
+};
 
 export default App;

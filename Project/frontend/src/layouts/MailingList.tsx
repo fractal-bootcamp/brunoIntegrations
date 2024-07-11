@@ -6,6 +6,9 @@ import CreateContactForm from "../components/CreateContactForm";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import MailingListEditor from "../components/MailingListEditor";
 import { MailingList } from "../../../shared/types/Types";
+import MLEditor from "../components/MLEditor.tsx";
+import EditListName from "../components/EditListName";
+import CreateNewListForm from "../components/CreateNewListForm";
 
 export default function MailingListManager(onListSelect) {
   // const [blast, setBlast] = useState<Object>({})
@@ -13,38 +16,23 @@ export default function MailingListManager(onListSelect) {
   const [collapsed, setCollapsed] = React.useState(false);
   const [list, setList] = React.useState(false);
   const [window, setWindow] = React.useState(false);
+  const [toggled, setToggled] = React.useState(false);
 
   const handleListSelect = (list: MailingList) => {
     setSelectedList(list);
   };
 
+  console.log("toggled", toggled);
   return (
     <>
       <div className="general-box">
         <div className="sidebar">
-          <div style={{ display: "flex", height: "100%", minHeight: "400px" }}>
-            <Sidebar collapsed={collapsed}>
-              <Menu>
-                <SubMenu className="element" label="Mailing lists">
-                  <MenuItem component={<CreateContactForm />}></MenuItem>
-                  <MenuItem onListSelect={handleListSelect}>
-                    <ListsDisplay />
-                  </MenuItem>
-                </SubMenu>
-
-                <SubMenu
-                  className="element"
-                  label="Blasts"
-                  component="BlastDisplay"
-                ></SubMenu>
-              </Menu>
-            </Sidebar>
-          </div>
+          <MLEditor />
         </div>
         <div className="content-window">
-          <h1>
-            <p>{selectedList}</p>
-          </h1>
+          <CreateContactForm />
+          <CreateNewListForm />
+          <EditListName />
         </div>
       </div>
     </>
