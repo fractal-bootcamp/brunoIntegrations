@@ -1,0 +1,122 @@
+Create a New Blast
+
+curl -X POST http://localhost:3010/blast \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "New Blast",
+           "authorId": "clyhcpgxp000514pa5shqcqdy",
+           "targetListIds": ["clyhcpgyg001o14pakcp8i2ap"],
+           "messages": [
+             {
+               "recipient": "recipient@example.com",
+               "subject": "Subject",
+               "body": "Body of the message",
+               "authorId": "clyhcpgxp000514pa5shqcqdy",
+               "contactId": "clyhcpgxv000b14pato6ix9ll"
+             }
+           ]
+         }'
+
+NOT FOUND
+
+Get All Blasts
+
+curl -X GET http://localhost:3010/blast/all
+GOOD 
+
+Get Blast by ID
+
+curl -X GET http://localhost:3010/blast/clyhcpgyp001z14pae01wgbog
+NOT FOUND
+
+
+Get All Mailing Lists
+
+curl -X GET http://localhost:3010/list/all
+GOOD
+
+
+Delete Mailing List by ID
+
+curl -X DELETE http://localhost:3010/list/clyhcpgyg001o14pakcp8i2ap
+ERROR
+
+Create a New Mailing List
+
+curl -X POST http://localhost:3010/list/new-list \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "New Mailing List",
+           "emails": ["newemail@example.com"],
+           "authorId": "clyhcpgxp000514pa5shqcqdy",
+           "authorEmail": "user1@example.com"
+         }'
+
+ERROR USER NOT FOUND IN THE DATABASE
+
+
+Update Mailing List
+
+curl -X POST http://localhost:3010/list/update \
+     -H "Content-Type: application/json" \
+     -d '{
+           "id": "clyhcpgyg001o14pakcp8i2ap",
+           "name": "Updated Mailing List",
+           "emails": ["updatedemail@example.com"],
+           "authorId": "clyhcpgxp000514pa5shqcqdy"
+         }'
+ERROR MAILING LIST NOT FOUND
+
+Create a New Contact
+
+curl -X POST http://localhost:3010/list/new-contact \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "Jorge",
+           "email": "jorge@example.com",
+           "mailingListIds": ["clyhcpgyg001o14pakcp8i2ad"]
+         }'
+
+
+Edit Contact
+bash
+Copiar código
+curl -X POST http://localhost:3010/contact/edit \
+     -H "Content-Type: application/json" \
+     -d '{
+           "id": "clyhcpgxv000b14pato6ix9ll",
+           "name": "Updated Contact",
+           "email": "updatedcontact@example.com"
+         }'
+Get Contact by Email
+bash
+Copiar código
+curl -X GET http://localhost:3010/contact/contact1@example.com
+Get All Contacts
+bash
+Copiar código
+curl -X GET http://localhost:3010/contact/all
+Delete Contact by ID
+bash
+Copiar código
+curl -X DELETE http://localhost:3010/contact/clyhcpgxv000b14pato6ix9ll
+Update Blast
+bash
+Copiar código
+curl -X POST http://localhost:3010/blast/update \
+     -H "Content-Type: application/json" \
+     -d '{
+           "id": "clyhcpgyp001z14pae01wgbog",
+           "name": "Updated Blast",
+           "sentAt": "2024-07-15T14:15:14.208Z"
+         }'
+Delete Blast by ID
+bash
+Copiar código
+curl -X DELETE http://localhost:3010/blast/clyhcpgyp001z14pae01wgbog
+Delete Email from Mailing List
+bash
+Copiar código
+curl -X DELETE http://localhost:3010/list/emails/clyhcpgyg001o14pakcp8i2ap \
+     -H "Content-Type: application/json" \
+     -d '{"email": "contact1@example.com"}'

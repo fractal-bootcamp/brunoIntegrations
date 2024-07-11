@@ -1,0 +1,32 @@
+From FrontEnd to BackEnd
+-Not going too deep into FrontEnd layouts-
+
+We will click a button and save a numeric value into a database.
+
+1. I click a button in ClickButton component. That change of state stored in a variable gets send
+by the function that is triggered by an event listener onClick.
+
+2. Folder API: A function that handles a route ('/example-route') and that triggers a request and a response.
+
+nameFunction = async (input) => {
+    check Token
+
+    try
+
+        await fetch('/route', {
+            method:
+            headers:
+        },
+        body:
+            )
+
+
+        if (!response.ok)
+
+        else
+        result = await response.json()
+        return result
+
+    catch(error)
+
+}
