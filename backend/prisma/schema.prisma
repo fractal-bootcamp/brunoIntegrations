@@ -1,0 +1,93 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64", "linux-arm64-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5440/mydb"
+}
+model MailingListsOnContacts {
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId String
+  mailingList MailingList @relation(fields: [mailingListId], references: [id])
+  mailingListId String
+
+  @@id([contactId, mailingListId])
+}
+
+model MailingListsOnBlasts {
+  blast Blast @relation(fields: [blastId], references: [id], onDelete: Cascade)
+  blastId String
+  mailingList MailingList @relation(fields: [mailingListId], references: [id])
+  mailingListId String
+  sentAt DateTime @default(now())
+
+  @@id([blastId, mailingListId])
+}
+// User model with arrays of related entities
+model User {
+  id    String     @id @default(cuid())
+  clerkId String @unique
+  name  String
+  email String  @unique
+  
+  mailingLists MailingList[]
+  messages Message[]
+  blasts Blast[] @relation("UserBlasts")
+}
+
+// Blast model
+model Blast {
+  id String @id @default(cuid())
+  name String
+  sentAt DateTime @default(now())
+  
+  author User @relation("UserBlasts", fields: [authorId], references: [id])
+  authorId String
+
+  mailingLists MailingListsOnBlasts[]
+  messages Message[]
+}
+
+// MailingList model
+model MailingList {
+  id    String     @id @default(cuid())
+  name  String
+  emails String[]
+  
+  contacts MailingListsOnContacts[]
+  blasts MailingListsOnBlasts[]
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
+// Contact model
+model Contact {
+  id    String     @id @default(cuid())
+  name  String
+  email String  @unique
+  
+  mailingLists MailingListsOnContacts[]
+  messages Message[] // Messages sent to this contact
+}
+
+// Message model
+model Message {
+  id    String     @id @default(cuid())
+
+  subject String
+  body String
+  sentAt DateTime
+  receivedAt DateTime?
+  deletedAt DateTime?
+
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+
+  blast Blast @relation(fields: [blastId], references: [id])
+  blastId String
+
+  contact Contact @relation(fields: [contactId], references: [id])
+  contactId String
+}

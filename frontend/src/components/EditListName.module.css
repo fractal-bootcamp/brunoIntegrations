@@ -1,0 +1,15 @@
+/* //you can create local css styles and import them (see EditListName 
+
+styles.listInput) */
+
+.listInput {
+    font-size: 18px;
+    outline: none;
+    border: 1px solid lightslategray;
+    color: slate;
+
+
+    &:disabled {
+        border: none;
+    }
+}
