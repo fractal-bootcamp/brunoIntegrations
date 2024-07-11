@@ -92,38 +92,6 @@ export const getAllMailingLists = async (token: string | null) => {
     }
 };
 
-export const createNewContact = async (token: string | null, contactData: { name: string; email: string }) => {
-
-    if (!token) {
-        console.error('No token provided');
-        return null;
-    }
-
-    try {
-        const response = await fetch(`${API_URL}/list/new-contact`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(contactData)
-        })
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Failed to create a new contact: ${response.status} - ${errorText}`);
-        }
-
-        const result = await response.json();
-        console.log('Created new contact:', result);
-        return result;
-
-    } catch (error) {
-        console.error('Error creating a new contact:', error);
-        return null;
-    }
-}
-
 
 export const createNewList = async (token: string | null, listData: { name: string; emails: string[], authorId: string }) => {
 
@@ -171,7 +139,7 @@ export const editList = async (token: string, data: {
 
     try {
 
-        const response = await fetch(`${API_URL}/mailing-list/update`, {
+        const response = await fetch(`${API_URL}/list/update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -190,6 +158,40 @@ export const editList = async (token: string, data: {
     }
 
 }
+
+
+export const createNewContact = async (token: string | null, contactData: { name: string; email: string }) => {
+
+    if (!token) {
+        console.error('No token provided');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/list/new-contact`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify(contactData)
+        })
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to create a new contact: ${response.status} - ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log('Created new contact:', result);
+        return result;
+
+    } catch (error) {
+        console.error('Error creating a new contact:', error);
+        return null;
+    }
+}
+
 
 export const editContact = async (token: string | null, contactData: { name?: string, email?: string }) => {
     if (!token) {

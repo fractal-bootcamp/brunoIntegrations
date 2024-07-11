@@ -5,11 +5,18 @@ import ListWithProps from "../components/ListWithProps";
 import CreateContactForm from "../components/CreateContactForm";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import MailingListEditor from "../components/MailingListEditor";
+import { MailingList } from "../../../shared/types/Types";
 
-export default function MailingListManager() {
+export default function MailingListManager(onListSelect) {
   // const [blast, setBlast] = useState<Object>({})
-  const [list, setList] = useState<Object>({});
+  const [selectedList, setSelectedList] = useState<MailingList | null>(null);
   const [collapsed, setCollapsed] = React.useState(false);
+  const [list, setList] = React.useState(false);
+  const [window, setWindow] = React.useState(false);
+
+  const handleListSelect = (list: MailingList) => {
+    setSelectedList(list);
+  };
 
   return (
     <>
@@ -18,16 +25,13 @@ export default function MailingListManager() {
           <div style={{ display: "flex", height: "100%", minHeight: "400px" }}>
             <Sidebar collapsed={collapsed}>
               <Menu>
-                <SubMenu
-                  className="element"
-                  label="Mailing lists"
-                  component="ListsDisplay"
-                >
+                <SubMenu className="element" label="Mailing lists">
                   <MenuItem component={<CreateContactForm />}></MenuItem>
-                  <MenuItem component={<ListsDisplay />}>
-                    See all mailing lists
+                  <MenuItem onListSelect={handleListSelect}>
+                    <ListsDisplay />
                   </MenuItem>
                 </SubMenu>
+
                 <SubMenu
                   className="element"
                   label="Blasts"
@@ -38,7 +42,9 @@ export default function MailingListManager() {
           </div>
         </div>
         <div className="content-window">
-          <MailingListEditor />
+          <h1>
+            <p>{selectedList}</p>
+          </h1>
         </div>
       </div>
     </>

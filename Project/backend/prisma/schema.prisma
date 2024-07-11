@@ -7,9 +7,8 @@ datasource db {
   provider = "postgresql"
   url      = "postgresql://postgres:postgres@localhost:5440/mydb"
 }
-
 model MailingListsOnContacts {
-  contact Contact @relation(fields: [contactId], references: [id])
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
   contactId String
   mailingList MailingList @relation(fields: [mailingListId], references: [id])
   mailingListId String
@@ -18,7 +17,7 @@ model MailingListsOnContacts {
 }
 
 model MailingListsOnBlasts {
-  blast Blast @relation(fields: [blastId], references: [id])
+  blast Blast @relation(fields: [blastId], references: [id], onDelete: Cascade)
   blastId String
   mailingList MailingList @relation(fields: [mailingListId], references: [id])
   mailingListId String
@@ -26,7 +25,6 @@ model MailingListsOnBlasts {
 
   @@id([blastId, mailingListId])
 }
-
 // User model with arrays of related entities
 model User {
   id    String     @id @default(cuid())
