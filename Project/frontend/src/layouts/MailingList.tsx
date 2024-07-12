@@ -9,7 +9,7 @@ import { MailingList } from "../../../shared/types/Types";
 import MLEditor from "../components/MLEditor.tsx";
 import EditListName from "../components/EditListName";
 import CreateNewListForm from "../components/CreateNewListForm";
-
+import MailingListsTable from "../components/MailingListsTable";
 export default function MailingListManager(onListSelect) {
   // const [blast, setBlast] = useState<Object>({})
   const [selectedList, setSelectedList] = useState<MailingList | null>(null);
@@ -30,9 +30,7 @@ export default function MailingListManager(onListSelect) {
           <MLEditor />
         </div>
         <div className="content-window">
-          <CreateContactForm />
-          <CreateNewListForm />
-          <ListsDisplay />
+          <MailingListsTable />
         </div>
       </div>
     </>

@@ -1,49 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import styles from "./EditListName.module.css";
-import {
-  editList,
-  deleteContact,
-  editContact,
-  getList,
-} from "../api/mailService";
-import { MailingList } from "../../../shared/types/Types";
+import { editList, editContact, getContactByEmail } from "../api/mailService";
 
 interface EditListNameProps {
-  arrayIndex: number;
-  lists: MailingList[];
+  listId: string;
+  name: string;
+  emails: string[];
+  onNameChange?: (newName: string) => void;
+  onListChange?: (newList: string[]) => void;
 }
 
-export default function EditListName({ arrayIndex, lists }: EditListNameProps) {
-  const [listName, setListName] = useState<string>("");
-  const [displayEdit, setDisplayEdit] = useState<boolean>(false);
-  const [emailsList, setEmailsList] = useState<string[]>([]);
+export default function EditListName({
+  listId,
+  name,
+  emails,
+}: EditListNameProps) {
+  const [listName, setListName] = useState<string>(name);
+  const [displayEdit, setDisplayEdit] = useState<boolean>(true);
+  const [emailsList, setEmailsList] = useState<string[]>(emails);
   const [displayEditList, setDisplayEditList] = useState<boolean>(false);
   const [editEmail, setEditEmail] = useState<string | null>(null);
   const [newEmail, setNewEmail] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
+  const [fetchEmail, setFetchEmail] = useState("");
   const { getToken } = useAuth();
   const { user } = useUser();
 
-  useEffect(() => {
-    const fetchList = async () => {
-      try {
-        setIsLoading(true);
-        const list = lists[arrayIndex];
-        setListName(list.name);
-        setEmailsList(list.emails);
-      } catch (err) {
-        setError("Failed to fetch list data");
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchList();
-  }, [arrayIndex, lists]);
+  useEffect(() => {}, []);
 
   const handleEdit = () => {
     setDisplayEdit(!displayEdit);
@@ -56,62 +39,71 @@ export default function EditListName({ arrayIndex, lists }: EditListNameProps) {
   const handleListChange = async () => {
     try {
       const token = await getToken();
-      await editList(token, {
-        id: lists[arrayIndex].id,
+      const updatedList = await editList(token, {
+        id: listId,
         emails: emailsList,
       });
 
-      setDisplayEditList(false);
-      alert("List's contacts edited successfully!");
+      setDisplayEditList(updatedList);
+      alert("List's contact edited successfully!");
     } catch (error) {
       console.error("Error updating email list:", error);
       alert("Failed to edit email");
     }
+    handleEditList();
   };
 
   const handleNameChange = async () => {
-    if (user) {
+    if (listName !== name && user) {
       try {
         const token = await getToken();
-        await editList(token, {
-          id: lists[arrayIndex].id,
+        const updatedList = await editList(token, {
+          id: listId,
           name: listName,
           emails: emailsList,
           authorId: user.id,
         });
 
-        setDisplayEdit(false);
         alert("List's name edited successfully!");
       } catch (error) {
         console.error("Error updating list name:", error);
         alert("Failed to update list name");
       }
     }
-  };
-
-  const handleDeleteContact = async (email: string) => {
-    try {
-      const token = await getToken();
-      await deleteContact(token, email);
-      setEmailsList(emailsList.filter((item) => item !== email));
-      alert("Contact deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting contact:", error);
-      alert("Failed to delete contact");
-    }
+    handleEdit();
   };
 
   const handleEditContact = (email: string) => {
+    const fetchEmail = async (emailToFetch: string) => {
+      try {
+        const token = await getToken();
+        const result = await getContactByEmail(token, emailToFetch);
+        console.log("Information of the email fetched to be edited", result);
+        setFetchEmail(result);
+      } catch (error) {
+        console.log("Error fetching contact by email:", error);
+      }
+    };
+
+    console.log("Email to edit:", email);
     setEditEmail(email);
-    setNewEmail(email);
+    const fetched = fetchEmail(email); // Call the fetchEmail function here
+    console.log("Email after fetched", fetched);
   };
 
+  useEffect(() => {
+    if (editEmail !== null) {
+      console.log("Edit email updated:", editEmail);
+    }
+  }, [editEmail]);
+
   const handleSaveContact = async () => {
+    console.log("Value processed that was stored at editEmail", editEmail);
     if (!editEmail || newEmail === "") return;
 
     try {
       const token = await getToken();
-      await editContact(token, editEmail, newEmail);
+      await editContact(token, listId, editEmail, newEmail); // Pass the list ID
       setEmailsList(
         emailsList.map((email) => (email === editEmail ? newEmail : email))
       );
@@ -124,8 +116,17 @@ export default function EditListName({ arrayIndex, lists }: EditListNameProps) {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  const handleDeleteContact = async (email: string) => {
+    try {
+      const token = await getToken();
+      await editContact(token, listId, email, ""); // Assuming the function is modified to handle deletions as well
+      setEmailsList(emailsList.filter((e) => e !== email));
+      alert("Contact deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting contact:", error);
+      alert("Failed to delete contact");
+    }
+  };
 
   return (
     <>

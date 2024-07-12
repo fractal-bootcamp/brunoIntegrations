@@ -1,103 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { createNewList } from "../api/mailService";
+import { createNewList, getList, updateList } from "../api/mailService";
 import type { Contact, MailingList } from "../../../shared/types/Types";
 import { useAuth, useUser } from "@clerk/clerk-react";
+import CreateContactForm from "./CreateContactForm";
 
-const CreateListForm: React.FC = () => {
-  const [displayFormNewList, setDisplayFormNewList] = useState(false);
-
-  const [listName, setListName] = useState<string>("");
-  const [emailsList, setEmailsList] = useState<string[]>([]);
-  const [newList, setNewList] = useState<string[]>([]);
-  const [email, setEmail] = useState<string>("");
+const ModifyListForm: React.FC<{ listId?: string }> = ({ listId }) => {
+  const [listName, setListName] = useState("");
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
 
   const { user } = useUser();
   const { getToken } = useAuth();
 
-  const handleSubmitNewList = async (event: React.FormEvent) => {
-    event.preventDefault();
+  useEffect(() => {
+    if (listId) {
+      fetchList();
+    }
+  }, [listId]);
 
+  const fetchList = async () => {
     try {
       const token = await getToken();
-      const newList = await createNewList(token, {
-        name: listName,
-        emails: emailsList,
-        authorId: user.id,
-      });
-      setNewList(newList);
-
-      alert("Mailing list created successfully");
-
-      // Clear the form
-      setListName("");
-      setEmailsList([]);
+      const list = await getList(token, listId);
+      setListName(list.name);
+      setContacts(list.contacts);
     } catch (error) {
-      console.error("Error creating mailing list:", error);
-      alert("Failed to create mailing list");
+      console.error("Error fetching list:", error);
     }
   };
 
-  const handleCreateNewList = () => {
-    setDisplayFormNewList(!displayFormNewList);
-  };
-
-  const addEmailToList = () => {
-    if (email) {
-      setEmailsList([...emailsList, email]);
-      setEmail("");
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      const token = await getToken();
+      const updatedList = await updateList(token, listId, {
+        name: listName,
+        contacts: contacts,
+      });
+      alert("Mailing list updated successfully");
+    } catch (error) {
+      console.error("Error updating mailing list:", error);
+      alert("Failed to update mailing list");
     }
   };
 
-  const removeEmailFromList = (emailToRemove: string) => {
-    setEmailsList(emailsList.filter((email) => email != emailToRemove));
+  const handleContactUpdate = (updatedContact: Contact) => {
+    setContacts(
+      contacts.map((c) => (c.id === updatedContact.id ? updatedContact : c))
+    );
+    setSelectedContact(null);
   };
 
   return (
-    <>
-      <button onClick={handleCreateNewList}>Create new mailing list</button>
-      {displayFormNewList ? (
-        <form onSubmit={handleSubmitNewList}>
-          <div>
-            <label>
-              Name:{" "}
-              <input
-                type="text"
-                value={listName}
-                onChange={(e) => setListName(e.target.value)}
-                required
-              />
-            </label>
-          </div>
-          <div>
-            <ol>
-              {emailsList.map((item, index) => (
-                <div key={index}>
-                  <li>{item}</li>
-                  <button
-                    type="button"
-                    onClick={() => removeEmailFromList(item)}
-                  >
-                    x
-                  </button>
-                </div>
-              ))}
-            </ol>
-            <label>
-              <button type="button" onClick={addEmailToList}>
-                Add e-mail:
-              </button>{" "}
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-          </div>
-          <button type="submit"> Create List</button>
-        </form>
-      ) : null}
-    </>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={listName}
+        onChange={(e) => setListName(e.target.value)}
+        placeholder="List Name"
+        required
+      />
+
+      <ul>
+        {contacts.map((contact) => (
+          <li key={contact.id} onClick={() => setSelectedContact(contact)}>
+            {contact.name} ({contact.email})
+          </li>
+        ))}
+      </ul>
+
+      {selectedContact && (
+        <CreateContactForm
+          contact={selectedContact}
+          onUpdateContact={handleContactUpdate}
+        />
+      )}
+
+      <button type="submit">Save List</button>
+    </form>
   );
 };
 
-export default CreateListForm;
+export default ModifyListForm;

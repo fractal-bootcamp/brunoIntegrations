@@ -6,6 +6,10 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 const CreateContactForm: React.FC = () => {
   const [displayFormNewContact, setDisplayFormNewContact] = useState(false);
 
+  const [listName, setListName] = useState<string>("");
+  const [emailsList, setEmailsList] = useState<string[]>([]);
+  const [newList, setNewList] = useState<string[]>([]);
+
   const [contactName, setContactName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [newContact, setNewContact] = useState<Contact | null>(null);
@@ -42,12 +46,91 @@ const CreateContactForm: React.FC = () => {
     }
   };
 
+  const handleSubmitNewList = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      const token = await getToken();
+      const newList = await createNewList(token, {
+        name: listName,
+        emails: emailsList,
+        authorId: user.id,
+      });
+      setNewList(newList);
+
+      alert("Mailing list created successfully");
+
+      // Clear the form
+      setListName("");
+      setEmailsList([]);
+    } catch (error) {
+      console.error("Error creating mailing list:", error);
+      alert("Failed to create mailing list");
+    }
+  };
+
   const handleCreateNewContact = () => {
     setDisplayFormNewContact(!displayFormNewContact);
   };
 
+  const handleCreateNewList = () => {
+    setDisplayFormNewList(!displayFormNewList);
+  };
+
+  const addEmailToList = () => {
+    if (email) {
+      setEmailsList([...emailsList, email]);
+      setEmail("");
+    }
+  };
+
+  const removeEmailFromList = (emailToRemove: string) => {
+    setEmailsList(emailsList.filter((email) => email != emailToRemove));
+  };
   return (
     <>
+      <button onClick={handleCreateNewList}>Create new mailing list</button>
+      {displayFormNewList ? (
+        <form onSubmit={handleSubmitNewList}>
+          <div>
+            <label>
+              Name:{" "}
+              <input
+                type="text"
+                value={listName}
+                onChange={(e) => setListName(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div>
+            <ol>
+              {emailsList.map((item, index) => (
+                <div key={index}>
+                  <li>{item}</li>
+                  <button
+                    type="button"
+                    onClick={() => removeEmailFromList(item)}
+                  >
+                    x
+                  </button>
+                </div>
+              ))}
+            </ol>
+            <label>
+              <button type="button" onClick={addEmailToList}>
+                Add e-mail:
+              </button>{" "}
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+          </div>
+          <button type="submit"> Create List</button>
+        </form>
+      ) : null}
       <button onClick={handleCreateNewContact}>Create new contact</button>
       {displayFormNewContact ? (
         <form onSubmit={handleSubmitNewContact}>
