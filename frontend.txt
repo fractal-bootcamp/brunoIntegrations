@@ -9,14 +9,15 @@
             -email in many (search for an email on mailinglists)
             -email in one (idem in one mailing list)
 
-    -create (PUT)
-        name (required)
+    -create (POST)
+        name (required) DONE
         mail
 
-        other mailing list
+        other mailing list DONE
+        
         add a commentary on the mailing list 
 
-    -modify (POST)
+    -modify (PUT)
         name
         mail
     

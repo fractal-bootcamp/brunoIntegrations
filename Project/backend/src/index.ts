@@ -31,8 +31,6 @@ const port = 3010;
 
 app.use(express.json());
 
-
-
 // allow urlencoded data to be submitted using middleware
 app.use(express.urlencoded({ extended: true }))
 
@@ -166,22 +164,21 @@ app.get('/blast/:id', async (req, res) => {
 
 //GET all Mailinglists
 app.get('/list/all', async (req, res) => {
-
     try {
-        const lists = await prisma.mailingList.findMany({
+        const mailingLists = await prisma.mailingList.findMany({
             select: {
+                id: true,
                 name: true,
                 emails: true,
-                author: true,
-                contacts: true,
-                blasts: true,
             },
         });
-        res.json(lists);
+        console.log('All lists', mailingLists)
+        res.json(mailingLists);
     } catch (error) {
-        res.status(500).json({ error: 'Error getting all lists' });
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch mailing lists' });
     }
-})
+});
 
 
 app.delete('/list/:id', async (req, res) => {
@@ -297,31 +294,43 @@ app.post('/list/new-contact', async (req, res) => {
 
 })
 
-
 app.post('/contact/edit', async (req, res) => {
+    const { listId, email, newEmail } = req.body;
 
-    const { name, email } = req.body;
-    const contactId: string = req.body.id;
+    console.log('Received request to edit contact', req.body); // Debug log
 
     try {
-        const contactDetails = await prisma.contact.update({
-            data:
-            {
-                name,
-                email,
+        // Find the contact within the specified mailing list
+        const contact = await prisma.contact.findFirst({
+            where: {
+                email: email,
+                mailingLists: {
+                    some: {
+                        mailingListId: listId,
+                    },
+                },
             },
+        });
 
-            where: { id: contactId }
-        })
+        if (!contact) {
+            console.log('Contact not found:', { listId, email }); // Debug log
+            return res.status(404).json({ error: 'Contact not found in the specified mailing list' });
+        }
 
-        res.status(201).json(contactDetails)
-    }
+        // Update the contact's email
+        const updatedContact = await prisma.contact.update({
+            where: { id: contact.id },
+            data: { email: newEmail },
+        });
 
-    catch (error) {
+        res.status(201).json(updatedContact);
+    } catch (error) {
         console.error(error);
-        res.status(500).json({ error: `Error in updating contact's information` });
+        res.status(500).json({ error: 'Error in updating contact\'s information' });
     }
-})
+});
+
+
 
 
 app.get('/contact/:email', async (req, res) => {

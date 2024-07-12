@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { getAllMailingLists } from "../api/mailService";
 import { MailingList } from "../../../shared/types/Types";
@@ -7,13 +7,10 @@ import EditListName from "./EditListName";
 export default function ListsDisplay() {
   const [lists, setList] = useState<MailingList[]>([]);
   const [visible, setVisible] = useState(false);
-  const [selectedList, setSelectedList] = useState<string[]>([]);
-  const [listVisible, setListVisible] = useState(false);
-  const [oneListVisible, setOneListVisible] = useState(false);
   const [selectedListIndex, setSelectedListIndex] = useState<number | null>(
     null
   );
-  const [valueArray, setValueArray] = useState<number[]>([]);
+  const [listIds, setListIds] = useState<string[]>([]);
 
   const getToken = useAuth().getToken;
 
@@ -22,25 +19,21 @@ export default function ListsDisplay() {
       const token = await getToken();
       const mailingList = await getAllMailingLists(token);
       setList(mailingList);
-      const indexArray = mailingList.map((_, index) => index);
-      setValueArray(indexArray);
+      console.log("Fetched Lists", mailingList); // Debug: Log the IDs
+
+      const idsArray = mailingList.map((list) => list.id);
+      console.log("Fetched List IDs:", idsArray); // Debug: Log the IDs
+      setListIds(idsArray);
+      setVisible(true);
     } catch (error) {
       console.log("Error fetching mailing lists by name:", error);
     }
-
-    setVisible(!visible);
   };
 
-  if (lists === null) {
-    return <div>Loading...</div>;
-  }
-
   const handleDisplayIndividualList = (index: number) => {
-    const list = lists[index];
-    const { emails } = list;
-    setSelectedList(emails);
-    setOneListVisible(!oneListVisible);
     setSelectedListIndex(index);
+    console.log("Selected", index);
+    setVisible(false);
   };
 
   return (
@@ -54,19 +47,16 @@ export default function ListsDisplay() {
                 <button onClick={() => handleDisplayIndividualList(index)}>
                   {list.name}
                 </button>
-                {listVisible && (
-                  <ul>
-                    {selectedList.map((email) => (
-                      <li key={email}>{email}</li>
-                    ))}
-                  </ul>
-                )}
               </li>
             ))}
           </ul>
         )}
         {selectedListIndex !== null && (
-          <EditListName arrayIndex={selectedListIndex} lists={lists} />
+          <EditListName
+            listId={lists[selectedListIndex].id}
+            name={lists[selectedListIndex].name}
+            emails={lists[selectedListIndex].emails}
+          />
         )}
       </div>
     </>
